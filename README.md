@@ -31,14 +31,16 @@ A text react component which renders the ascii text converted from a canvas imag
 
 ## Props
 
-| Prop                  | Description                                                                                                                               |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `asciiData`(optional) | an array of character to present the ascii with.<br>Ordered from brightest (white) to darkest (black).<br>Default: [" ", ".", ",", ";", " | ", "\*", "%", "@", "X", "#", "W", "M"] |
-| `invert`(optional)    | whether to reverse the `asciiData` ordering<br>Default: `false`                                                                           |
+| Prop                  | Description                                                                                                                                                                         |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `asciiData`(optional) | an array of character to present the ascii with.<br>Ordered from brightest (white) to darkest (black).<br>Default: `[" ", ".", ",", ";", "\|", "\*", "%", "@", "X", "#", "W", "M"]` |
+| `invert`(optional)    | whether to reverse the `asciiData` ordering<br>Default: `false`                                                                                                                     |
 
 ## Usage
 
 ```javascript
+import React, { Component } from "react";
+import { render } from "react-dom";
 import CanvasASCII from "jw-canvas-ascii";
 
 class Example extends Component {
