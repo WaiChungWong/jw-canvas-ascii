@@ -11,7 +11,8 @@ class Demo extends Component {
 
     this.state = {
       fontSize: 7,
-      invert: false
+      invert: false,
+      showDrawing: true
     };
 
     this._resizeHandler = this._resizeHandler.bind(this);
@@ -71,31 +72,46 @@ class Demo extends Component {
   }
 
   render() {
-    const { fontSize, invert } = this.state;
+    const { fontSize, invert, showDrawing } = this.state;
 
     return (
       <div id="demo">
-        <canvas ref={c => (this.canvas = c)} />
+        <canvas
+          ref={c => (this.canvas = c)}
+          className={showDrawing ? "show" : ""}
+        />
         <CanvasASCII
           ref={a => (this.ascii = a)}
           style={{ fontSize: `${fontSize}px` }}
           invert={invert}
         />
-        <div className="settings">
+        <div id="settings">
+          <div className="title">Settings</div>
           <div className="field">
-            <label>invert: </label>
+            <label htmlFor="invert">invert value: </label>
             <input
+              id="invert"
               type="checkbox"
               checked={invert}
               onChange={e => this.setState({ invert: e.target.checked })}
             />
           </div>
           <div className="field">
-            <label>font size: </label>
+            <label htmlFor="fontSize">font size: </label>
             <input
+              id="fontSize"
               type="number"
               value={fontSize}
               onChange={e => this.setState({ fontSize: e.target.value })}
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="showDrawing">show drawing: </label>
+            <input
+              id="showDrawing"
+              type="checkbox"
+              checked={showDrawing}
+              onChange={e => this.setState({ showDrawing: e.target.checked })}
             />
           </div>
         </div>
