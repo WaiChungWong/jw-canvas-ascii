@@ -16,18 +16,20 @@ A text react component which renders the ascii text converted from a canvas imag
 [download-image]: https://img.shields.io/npm/dm/jw-canvas-ascii.svg
 [download-url]: https://npmjs.org/package/jw-canvas-ascii
 
+[Demo](http://waichungwong.github.io/jw-canvas-ascii/build)
+
 ## Install
 
 [![NPM](https://nodei.co/npm/jw-canvas-ascii.png)](https://nodei.co/npm/jw-canvas-ascii)
 
 ## Methods
 
-| Method              | Description                                                     |
-| ------------------- | --------------------------------------------------------------- |
-| `setCanvas`         | set a target canvas component to convert image data from        |
-| `getTextElement`    | retrieve the ascii text element                                 |
-| `generateAsciiCode` | returns a newly generated ascii text from the canvas image data |
-| `update`            | re-render ascii text onto the text element                      |
+| Method              | Parameters            | Description                                                     |
+| ------------------- | --------------------- | --------------------------------------------------------------- |
+| `setCanvas`         | `canvas`: DOM element | set a target canvas component to convert image data from        |
+| `getTextElement`    |                       | retrieve the ascii text element                                 |
+| `generateAsciiCode` |                       | returns a newly generated ascii text from the canvas image data |
+| `update`            |                       | re-render ascii text onto the text element                      |
 
 ## Props
 
