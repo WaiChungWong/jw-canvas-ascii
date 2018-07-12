@@ -33,10 +33,11 @@ A text react component which renders the ascii text converted from a canvas imag
 
 ## Props
 
-| Prop                  | Description                                                                                                                                                                         |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `asciiData`(optional) | an array of character to present the ascii with.<br>Ordered from brightest (white) to darkest (black).<br>Default: `[" ", ".", ",", ";", "\|", "\*", "%", "@", "X", "#", "W", "M"]` |
-| `invert`(optional)    | whether to reverse the `asciiData` ordering<br>Default: `false`                                                                                                                     |
+| Prop                    | Description                                                                                                                                                                         |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `contextType`(optional) | the context type of the canvas<br>Default: "2d"                                                                                                                                     |
+| `asciiData`(optional)   | an array of character to present the ascii with.<br>Ordered from brightest (white) to darkest (black).<br>Default: `[" ", ".", ",", ";", "\|", "\*", "%", "@", "X", "#", "W", "M"]` |
+| `invert`(optional)      | whether to reverse the `asciiData` ordering<br>Default: `false`                                                                                                                     |
 
 ## Usage
 

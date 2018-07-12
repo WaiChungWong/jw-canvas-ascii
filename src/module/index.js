@@ -47,7 +47,7 @@ class CanvasASCII extends Component {
   /** Generate ascii text from the canvas image data. */
   generateAsciiCode() {
     const { canvas, calibrator, props } = this;
-    const { invert, asciiData } = props;
+    const { contextType, invert, asciiData } = props;
     const asciiIntervals = 255 / asciiData.length;
 
     this.textWidth = calibrator.offsetWidth / SAMPLE_SIZE;
@@ -65,7 +65,7 @@ class CanvasASCII extends Component {
         const widthScale = this.textWidth / canvasWidthScale;
         const heightScale = this.textHeight / canvasHeightScale;
 
-        const context = canvas.getContext("2d");
+        const context = canvas.getContext(contextType);
         const pixels = context.getImageData(0, 0, width, height).data;
 
         for (let y = 0; y < height; y += heightScale) {
@@ -79,7 +79,7 @@ class CanvasASCII extends Component {
             /* turn RGB color to grayscale. */
             let averageValue = pixels[i] + pixels[i + 1] + pixels[i + 2];
 
-            averageValue = averageValue / 3 * pixels[i + 3] / 255;
+            averageValue = ((averageValue / 3) * pixels[i + 3]) / 255;
 
             /* set revert. */
             if (invert === false) {
@@ -139,11 +139,13 @@ class CanvasASCII extends Component {
 }
 
 CanvasASCII.propTypes = {
+  contextType: PropTypes.string,
   invert: PropTypes.bool,
   asciiData: PropTypes.arrayOf(PropTypes.string)
 };
 
 CanvasASCII.defaultProps = {
+  contextType: "2d",
   invert: false,
   asciiData: [" ", ".", ",", ";", "|", "*", "%", "@", "X", "#", "W", "M"]
 };
