@@ -34,6 +34,23 @@ class CanvasASCII extends Component {
     }
   }
 
+  _getPixels() {
+    const { canvas } = this;
+    const { width, height } = canvas;
+    let context, pixels;
+
+    if ((context = canvas.getContext("2d")) !== null) {
+      pixels = context.getImageData(0, 0, width, height).data;
+    } else if ((context = canvas.getContext("webgl")) !== null) {
+      const { RGBA, UNSIGNED_BYTE } = context;
+
+      pixels = new Uint8Array(4 * width * height);
+      context.readPixels(0, 0, width, height, RGBA, UNSIGNED_BYTE, pixels);
+    }
+
+    return pixels;
+  }
+
   setCanvas(canvas) {
     this.canvas = canvas;
     this.update();
@@ -47,7 +64,7 @@ class CanvasASCII extends Component {
   /** Generate ascii text from the canvas image data. */
   generateAsciiCode() {
     const { canvas, calibrator, props } = this;
-    const { contextType, invert, asciiData } = props;
+    const { invert, asciiData } = props;
     const asciiIntervals = 255 / asciiData.length;
 
     this.textWidth = calibrator.offsetWidth / SAMPLE_SIZE;
@@ -65,8 +82,7 @@ class CanvasASCII extends Component {
         const widthScale = this.textWidth / canvasWidthScale;
         const heightScale = this.textHeight / canvasHeightScale;
 
-        const context = canvas.getContext(contextType);
-        const pixels = context.getImageData(0, 0, width, height).data;
+        const pixels = this._getPixels();
 
         for (let y = 0; y < height; y += heightScale) {
           for (let x = 0; x < width; x += widthScale) {
@@ -139,13 +155,11 @@ class CanvasASCII extends Component {
 }
 
 CanvasASCII.propTypes = {
-  contextType: PropTypes.string,
   invert: PropTypes.bool,
   asciiData: PropTypes.arrayOf(PropTypes.string)
 };
 
 CanvasASCII.defaultProps = {
-  contextType: "2d",
   invert: false,
   asciiData: [" ", ".", ",", ";", "|", "*", "%", "@", "X", "#", "W", "M"]
 };

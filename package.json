@@ -1,6 +1,6 @@
 {
   "name": "jw-canvas-ascii",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A text react component which renders the ascii text converted from a canvas image data.",
   "author": "john wong <johnwongwwc@gmail.com>",
   "homepage": "http://https://waichungwong.github.io/jw-canvas-ascii/build",
