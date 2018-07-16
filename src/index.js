@@ -1,5 +1,15 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import {
+  Scene,
+  PerspectiveCamera,
+  PointLight,
+  BoxGeometry,
+  MeshLambertMaterial,
+  Mesh
+} from "three";
+
+import ThreeCanvas from "jw-three-canvas";
 
 import CanvasASCII from "./module";
 
@@ -16,21 +26,46 @@ class Demo extends Component {
     };
 
     this._resizeHandler = this._resizeHandler.bind(this);
+    this.animate = this.animate.bind(this);
+
+    this.scene = new Scene();
+
+    this.camera = new PerspectiveCamera(50, 1, 1, 1000);
+    this.camera.position.z = 60;
+    this.scene.add(this.camera);
+
+    let light = new PointLight(0xffff00);
+    light.position.set(10, 0, 25);
+    this.scene.add(light);
+
+    let geometry = new BoxGeometry(20, 20, 20);
+    let material = new MeshLambertMaterial({ color: 0x55ff55 });
+    this.cube = new Mesh(geometry, material);
+    this.scene.add(this.cube);
+  }
+
+  animate(width, height, timeDiff) {
+    const { cube } = this;
+
+    cube.rotation.x += timeDiff;
+    cube.rotation.y += timeDiff;
+
+    this.ascii2.update();
   }
 
   componentDidMount() {
-    const { canvas, ascii } = this;
+    const { canvas1, ascii1, canvas2, ascii2 } = this;
 
-    let context = canvas.getContext("2d");
-    let centerX = canvas.width / 2;
-    let centerY = canvas.height / 2;
+    let context = canvas1.getContext("2d");
+    let centerX = canvas1.width / 2;
+    let centerY = canvas1.height / 2;
     let radius = 70;
     let eyeRadius = 10;
     let eyeXOffset = 25;
     let eyeYOffset = 20;
 
     context.fillStyle = "white";
-    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.fillRect(0, 0, canvas1.width, canvas1.height);
 
     // draw the yellow circle
     context.beginPath();
@@ -54,37 +89,56 @@ class Demo extends Component {
     context.arc(centerX, centerY, 50, 0, Math.PI, false);
     context.stroke();
 
-    ascii.setCanvas(canvas);
+    ascii1.setCanvas(canvas1);
+
+    canvas2.renderer.setClearColor(0xffffff);
+    ascii2.setCanvas(canvas2.getCanvasElement());
+
+    canvas2.animator.start();
 
     window.addEventListener("resize", this._resizeHandler, false);
-    canvas.addEventListener("resize", this._resizeHandler, false);
   }
 
   componentWillUnmount() {
-    const { canvas } = this;
-
     window.removeEventListener("resize", this._resizeHandler);
-    canvas.removeEventListener("resize", this._resizeHandler);
   }
 
   _resizeHandler() {
-    this.ascii.update();
+    this.ascii1.update();
+    this.ascii2.update();
   }
 
   render() {
-    const { fontSize, invert, showDrawing } = this.state;
+    const { scene, camera, state } = this;
+    const { fontSize, invert, showDrawing } = state;
 
     return (
       <div id="demo">
-        <canvas
-          ref={c => (this.canvas = c)}
-          className={showDrawing ? "show" : ""}
-        />
-        <CanvasASCII
-          ref={a => (this.ascii = a)}
-          style={{ fontSize: `${fontSize}px` }}
-          invert={invert}
-        />
+        <div className="ascii">
+          <canvas
+            ref={c => (this.canvas1 = c)}
+            className={showDrawing ? "show" : ""}
+          />
+          <CanvasASCII
+            ref={a => (this.ascii1 = a)}
+            style={{ fontSize: `${fontSize}px` }}
+            invert={invert}
+          />
+        </div>
+        <div className="ascii">
+          <ThreeCanvas
+            className={showDrawing ? "show" : ""}
+            ref={c => (this.canvas2 = c)}
+            animate={this.animate}
+            scene={scene}
+            camera={camera}
+          />
+          <CanvasASCII
+            ref={a => (this.ascii2 = a)}
+            style={{ fontSize: `${fontSize}px` }}
+            invert={invert}
+          />
+        </div>
         <div id="settings">
           <div className="title">Settings</div>
           <div className="field">

@@ -46,6 +46,18 @@ class CanvasASCII extends Component {
 
       pixels = new Uint8Array(4 * width * height);
       context.readPixels(0, 0, width, height, RGBA, UNSIGNED_BYTE, pixels);
+
+      let bytesPerRow = width * 4;
+      let temp = new Uint8Array(bytesPerRow);
+
+      for (let i = 0; i < Math.floor(height / 2); i++) {
+        let topOffset = i * bytesPerRow;
+        let bottomOffset = (height - i - 1) * bytesPerRow;
+
+        temp.set(pixels.subarray(topOffset, topOffset + bytesPerRow));
+        pixels.copyWithin(topOffset, bottomOffset, bottomOffset + bytesPerRow);
+        pixels.set(temp, bottomOffset);
+      }
     }
 
     return pixels;
