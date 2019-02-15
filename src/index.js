@@ -97,6 +97,11 @@ class Demo extends Component {
     canvas2.animator.start();
 
     window.addEventListener("resize", this._resizeHandler, false);
+
+    setTimeout(() => {
+      ascii1.update();
+      ascii2.update();
+    });
   }
 
   componentWillUnmount() {

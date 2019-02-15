@@ -1,6 +1,13 @@
 {
-  "main.css": "static/css/main.e8cbcdc4.css",
-  "main.css.map": "static/css/main.e8cbcdc4.css.map",
-  "main.js": "static/js/main.e62b3d9e.js",
-  "main.js.map": "static/js/main.e62b3d9e.js.map"
+  "main.css": "/jw-canvas-ascii/build/static/css/main.e3b1dcf6.chunk.css",
+  "main.js": "/jw-canvas-ascii/build/static/js/main.0d06ffe0.chunk.js",
+  "main.js.map": "/jw-canvas-ascii/build/static/js/main.0d06ffe0.chunk.js.map",
+  "runtime~main.js": "/jw-canvas-ascii/build/static/js/runtime~main.1de800b9.js",
+  "runtime~main.js.map": "/jw-canvas-ascii/build/static/js/runtime~main.1de800b9.js.map",
+  "static/js/2.66a692e5.chunk.js": "/jw-canvas-ascii/build/static/js/2.66a692e5.chunk.js",
+  "static/js/2.66a692e5.chunk.js.map": "/jw-canvas-ascii/build/static/js/2.66a692e5.chunk.js.map",
+  "index.html": "/jw-canvas-ascii/build/index.html",
+  "precache-manifest.9b11fb796796ba61d7c992bba4f007d9.js": "/jw-canvas-ascii/build/precache-manifest.9b11fb796796ba61d7c992bba4f007d9.js",
+  "service-worker.js": "/jw-canvas-ascii/build/service-worker.js",
+  "static/css/main.e3b1dcf6.chunk.css.map": "/jw-canvas-ascii/build/static/css/main.e3b1dcf6.chunk.css.map"
 }
